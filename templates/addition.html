@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %} 
+Addition
+{% endblock %}
+
+{% block keywords %}
+Addition,plus,add,adding
+{% endblock %}
+
+{% block content %}
+<h1> Addition</h1>
+<div class="card">
+<div class="card-header">
+<h5 class="card-title">What is {{x}} + {{y}}?</h5>
+</div>
+<div class="card-body">
+{% for i in range(4) %}
+<span id='answer{{i + 1}}' class='answer badge badge-secondary container-fluid'>{{options[i]}}</span>
+{% endfor %}
+</div>
+<form method="post" class="text-center">
+<input type="hidden" id="clientAnswer" name="clientAnswer"></input>
+<input type="hidden" id="x" name="x"></input>
+<input type="hidden" id="y" name="y"></input>
+<button class="btn btn-primary mb-3" id="smt-btn" type="submit">Check Answer</button>
+</form>
+
+<div class="container">
+<div id="result"></div>
+</div>
+</div>
+
+<script>
+$(document).ready(function(){
+$('.answer').addClass("badge badge-secondary container-fluid")
+$('.answer').attr("onClick", "changeColour(this)")
+})
+
+function changeColour(item){
+$('.answer').removeClass("badge-primary badge-danger badge-success")
+$('.answer').addClass("badge-secondary")
+$(item).addClass("badge-primary")
+$(item).removeClass("badge-secondary")
+$("#clientAnswer").val($(item).html())
+$("#x").val({{x}})
+$("#y").val({{y}})
+}
+
+ $('form').on('submit', function(e){
+$('.answer').removeClass("badge-success badge-danger")
+$.ajax({
+  type : 'POST',
+  url : "{{url_for('addition')}}",
+  data : {'x':{{x}},
+          'y':{{y}},
+		  'clientAnswer': $("#clientAnswer").val()},
+  success: function(result){
+  $('#result').html(result.res + "<p id='result-description'></p>");
+  if(result.res === 'Correct')
+  {
+    $('#result').removeClass("alert-danger")
+    $('#result').addClass("alert alert-success")
+	answers = document.getElementsByClassName('answer');
+	for(var i = answers.length - 1; i > -1; i--)
+	{
+	  if(answers[i].innerHTML.toString() === result.ans.toString())
+	  {
+	    answers[i].classList += ' badge-success'
+	  }
+	}
+	
+  }
+  else if (result.res === 'Incorrect')
+  {
+    $('#result-description').html("The correct answer was " + result.ans);
+    $('#result').removeClass("alert-success")
+    $('#result').addClass("alert alert-danger")
+	answers = document.getElementsByClassName('answer');
+	for(var i = answers.length - 1; i > -1; i--)
+	{
+	  if(answers[i].innerHTML.toString() === result.ans.toString())
+	  {
+	    answers[i].classList += ' badge-success'
+	  }
+	  else if(answers[i].innerHTML.toString() === $("#clientAnswer").val().toString())
+	  {
+	    answers[i].classList += ' badge-danger'
+	  }
+	}
+  }
+  }
+});
+ e.preventDefault();
+});
+
+</script>
+{% endblock %}
