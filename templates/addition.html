@@ -19,11 +19,12 @@ Addition,plus,add,adding
 <span id='answer{{i + 1}}' class='answer badge badge-secondary container-fluid'>{{options[i]}}</span>
 {% endfor %}
 </div>
-<form method="post" class="text-center">
+<form method="post" class="text-center container">
 <input type="hidden" id="clientAnswer" name="clientAnswer"></input>
 <input type="hidden" id="x" name="x"></input>
 <input type="hidden" id="y" name="y"></input>
-<button class="btn btn-primary mb-3" id="smt-btn" type="submit">Check Answer</button>
+<a class="btn btn-primary mb-3 float-left" href="{{url_for('addition')}}">New Question</a>
+<button class="btn btn-primary mb-3 float-right" id="smt-btn" type="submit">Check Answer</button>
 </form>
 
 <div class="container">

@@ -4,6 +4,10 @@ import json
 
 app = Flask(__name__)
 
+@app.errorhandler(404)
+def error_404(e):
+    return render_template('error404.html')
+
 @app.route('/')
 def index():
     return render_template('index.html')
