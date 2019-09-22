@@ -1,18 +1,20 @@
-from flask import Flask, render_template, request, jsonify, flash
+from flask import Blueprint, render_template, request, jsonify, flash
 import random
 import json
 
-app = Flask(__name__)
+# define the blueprint
+quizzes = Blueprint('quizzes', __name__, template_folder="templates")
 
-@app.errorhandler(404)
+
+@quizzes.errorhandler(404)
 def error_404(e):
     return render_template('error404.html')
 
-@app.route('/')
+@quizzes.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('quizzes/index.html')
 	
-@app.route('/addition', methods=["POST", "GET"])
+@quizzes.route('/addition', methods=["POST", "GET"])
 def addition():
     if request.method == "POST":
         x = int(request.form['x'])
@@ -38,7 +40,4 @@ def addition():
     # assign right answer to random position
     options[corans] = ans
             
-    return render_template('addition.html', x=x, y=y, options=options)
-	
-if __name__ == "__main__":
-    app.run(debug=True)
+    return render_template('quizzes/addition.html', x=x, y=y, options=options)

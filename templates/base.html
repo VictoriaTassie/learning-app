@@ -33,7 +33,7 @@
           Learning
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarLearningDropdown">
-          <a class="dropdown-item" href="/learning">Addition</a>
+          <a class="dropdown-item" href="{{url_for('learning.addition')}}">Addition</a>
         </div>
       </li>
 	  
@@ -42,7 +42,7 @@
           Quizzes
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarQuizzesDropdown">
-          <a class="dropdown-item" href="{{url_for('addition')}}">Addition</a>
+          <a class="dropdown-item" href="{{url_for('quizzes.addition')}}">Addition</a>
         </div>
       </li>
 	</ul>
