@@ -14,25 +14,63 @@ def error_404(e):
 def index():
     return render_template('quizzes/index.html')
 	
-@quizzes.route('/addition', methods=["POST", "GET"])
-def addition():
+@quizzes.route('arithmetic/<type>', methods=["POST", "GET"])
+def arithmetic(type):
     if request.method == "POST":
         x = int(request.form['x'])
         y = int(request.form['y'])
         clientAnswer = int(request.form['clientAnswer'])
-        if clientAnswer == x + y:
-            return jsonify({'res':'Correct', 'ans': x+y})
-        else:
-            return jsonify({'res':'Incorrect', 'ans': x+y})
+        if type == 'addition':
+            if clientAnswer == x + y:
+                return jsonify({'res':'Correct', 'ans': x+y})
+            else:
+                return jsonify({'res':'Incorrect', 'ans': x+y})
+        elif type == 'subtraction':
+            if clientAnswer == x - y:
+                return jsonify({'res':'Correct', 'ans': x-y})
+            else:
+                return jsonify({'res':'Incorrect', 'ans': x-y})
+        elif type == 'multiplication':
+            if clientAnswer == x * y:
+                return jsonify({'res':'Correct', 'ans': x*y})
+            else:
+                return jsonify({'res':'Incorrect', 'ans': x*y})
+        elif type == 'division':
+            if clientAnswer == x / y:
+                return jsonify({'res':'Correct', 'ans': x/y})
+            else:
+                return jsonify({'res':'Incorrect', 'ans': x/y})
 
 
     # random numbers to add together
-    x = random.randint(1,50)
-    y = random.randint(1,50)
-    ans = x + y
+    if type == 'multiplication' or type == 'division':
+        x = random.randint(2, 12)
+        y = random.randint(2, 12)
+    else:
+        x = random.randint(1,50)
+        y = random.randint(1,50)
+    
+    if type == 'addition':
+        ans = x + y
+    elif type == 'subtraction':
+        ans = x - y
+    elif type == 'multiplication':
+        ans = x * y
+		
+    if type == 'division':
+        mult = x * y
+        ans = x
+        x = mult
 
     # random wrong answers
-    options = [random.randint(1,100), random.randint(1,100), random.randint(1,100), random.randint(1,100)]
+    if type == 'addition':
+        options = [random.randint(1,100), random.randint(1,100), random.randint(1,100), random.randint(1,100)]
+    elif type == 'subtraction':
+        options = [random.randint(-49,49), random.randint(-49,49), random.randint(-49,49), random.randint(-49,49)]
+    elif type == 'multiplication':
+        options = [random.randint(2,144), random.randint(2,144), random.randint(2,144), random.randint(2,144)]
+    elif type == 'division':
+        options = random.sample(range(1, 12), 4) #[random.randint(1,12), random.randint(1,12), random.randint(1,12), random.randint(1,12)]
 
     # random number to be right
     corans = random.randint(0,3)
@@ -40,4 +78,4 @@ def addition():
     # assign right answer to random position
     options[corans] = ans
             
-    return render_template('quizzes/addition.html', x=x, y=y, options=options)
+    return render_template('quizzes/arithmetic.html', x=x, y=y, options=options, type=type)
