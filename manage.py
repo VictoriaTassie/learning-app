@@ -6,6 +6,8 @@ application = Flask(__name__)
 application.register_blueprint(learning, url_prefix="/learning", template_folder="templates")
 application.register_blueprint(quizzes, url_prefix="/quizzes", template_folder="templates")
 
+application.secret_key = "stringofwordsandsentences"
+
 @application.route('/')
 def index():
     return render_template('index.html')

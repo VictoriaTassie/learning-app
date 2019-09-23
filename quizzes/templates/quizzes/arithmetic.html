@@ -30,6 +30,10 @@ Division,divide,dividing
 <h5 class="card-title">What is {{x}} &#247; {{y}}?</h5>
 {% endif %}
 </div>
+<div class="container">
+<div class="float-left" id="num-right">Total Number of Correct Answers: {{total_correct}}</div>
+<div class="float-right" id="num-right-row">Number of Correct Answers in a Row: {{correct_in_row}}</div>
+</div>
 <div class="card-body">
 {% for i in range(4) %}
 <span id='answer{{i + 1}}' class='answer badge badge-secondary container-fluid'>{{options[i]}}</span>
@@ -78,6 +82,8 @@ $.ajax({
   {
     $('#result').removeClass("alert-danger")
     $('#result').addClass("alert alert-success")
+	$('#num-right').html('Total Number of Correct Answers: ' + result.total_correct)
+	$('#num-right-row').html('Number of Correct Answers in a Row: ' + result.correct_in_row)
 	answers = document.getElementsByClassName('answer');
 	for(var i = answers.length - 1; i > -1; i--)
 	{
@@ -93,6 +99,8 @@ $.ajax({
     $('#result-description').html("The correct answer was " + result.ans);
     $('#result').removeClass("alert-success")
     $('#result').addClass("alert alert-danger")
+	$('#num-right').html('Total Number of Correct Answers: ' + result.total_correct)
+	$('#num-right-row').html('Number of Correct Answers in a Row: ' + result.correct_in_row)
 	answers = document.getElementsByClassName('answer');
 	for(var i = answers.length - 1; i > -1; i--)
 	{
