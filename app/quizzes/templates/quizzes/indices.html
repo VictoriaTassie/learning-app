@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "quizzes/quizzes-base.html" %}
 
 {% block title %} 
 Indices
@@ -8,101 +8,17 @@ Indices
 indices,powers,exponent,square,cube
 {% endblock %}
 
-{% block content %}
-<h1>Indices</h1>
-<div class="card">
-<div class="card-header">
-<h5 class="card-title">What is {{x}}<sup>{{y}}</sup>?</h5>
-</div>
-<div class="container">
-<div class="float-left" id="num-right">Total Number of Correct Answers: {{total_correct}}</div>
-<div class="float-right" id="num-right-row">Number of Correct Answers in a Row: {{correct_in_row}}</div>
-</div>
-<div class="card-body">
-{% for i in range(4) %}
-<span id='answer{{i + 1}}' class='answer badge badge-secondary container-fluid'>{{options[i]}}</span>
-{% endfor %}
-</div>
-<form method="post" class="text-center container">
-<input type="hidden" id="clientAnswer" name="clientAnswer"></input>
-<input type="hidden" id="x" name="x"></input>
-<input type="hidden" id="y" name="y"></input>
-<a class="btn btn-primary mb-3 float-left" href="{{url_for('quizzes.indices')}}">New Question</a>
-<button class="btn btn-primary mb-3 float-right" id="smt-btn" type="submit">Check Answer</button>
-</form>
+{% block heading %}Indices{% endblock %}
 
-<div class="container">
-<div id="result"></div>
-</div>
-</div>
-
-<script>
-$(document).ready(function(){
-$('.answer').addClass("badge badge-secondary container-fluid")
-$('.answer').attr("onClick", "changeColour(this)")
-})
-
-function changeColour(item){
-$('.answer').removeClass("badge-primary badge-danger badge-success")
-$('.answer').addClass("badge-secondary")
-$(item).addClass("badge-primary")
-$(item).removeClass("badge-secondary")
-$("#clientAnswer").val($(item).html())
-$("#x").val({{x}})
-$("#y").val({{y}})
-}
-
- $('form').on('submit', function(e){
- console.log('button is being pressed');
-$('.answer').removeClass("badge-success badge-danger")
-$.ajax({
-  type : 'POST',
-  url : "{{url_for('quizzes.indices')}}",
-  data : {'x':{{x}},
-          'y':{{y}},
-		  'clientAnswer': $("#clientAnswer").val()},
-  success: function(result){
-  $('#result').html(result.res + "<p id='result-description'></p>");
-  if(result.res === 'Correct')
-  {
-    $('#result').removeClass("alert-danger")
-    $('#result').addClass("alert alert-success")
-	$('#num-right').html('Total Number of Correct Answers: ' + result.total_correct)
-	$('#num-right-row').html('Number of Correct Answers in a Row: ' + result.correct_in_row)
-	answers = document.getElementsByClassName('answer');
-	for(var i = answers.length - 1; i > -1; i--)
-	{
-	  if(answers[i].innerHTML.toString() === result.ans.toString())
-	  {
-	    answers[i].classList += ' badge-success'
-	  }
-	}
-	
-  }
-  else if (result.res === 'Incorrect')
-  {
-    $('#result-description').html("The correct answer was " + result.ans);
-    $('#result').removeClass("alert-success")
-    $('#result').addClass("alert alert-danger")
-	$('#num-right').html('Total Number of Correct Answers: ' + result.total_correct)
-	$('#num-right-row').html('Number of Correct Answers in a Row: ' + result.correct_in_row)
-	answers = document.getElementsByClassName('answer');
-	for(var i = answers.length - 1; i > -1; i--)
-	{
-	  if(answers[i].innerHTML.toString() === result.ans.toString())
-	  {
-	    answers[i].classList += ' badge-success'
-	  }
-	  else if(answers[i].innerHTML.toString() === $("#clientAnswer").val().toString())
-	  {
-	    answers[i].classList += ' badge-danger'
-	  }
-	}
-  }
-  }
-});
- e.preventDefault();
-});
-
-</script>
+{% block question %}
+What is {{x}}<sup>{{y}}</sup>?
 {% endblock %}
+
+
+{% block urlRefresh %}
+{{url_for('quizzes.indices')}}
+{% endblock %}
+
+{% block urlPost -%}
+{{url_for('quizzes.indices')}}
+{%- endblock %}
