@@ -1,0 +1,28 @@
+{% extends "quizzes/quizzes-base.html" %}
+
+{% block title %} 
+Arithmetic Sequences
+{% endblock %}
+
+{% block keywords %}
+arithmetic, sequences
+{% endblock %}
+
+{% block heading %} 
+Arithmetic Sequences
+{% endblock %}
+
+{% block question %}
+<p>The arithmetic sequence equation is given by: a<sub>1</sub> + (n - 1)d.</p>
+<p>The {{ns[0]}}<sup>{% if ns[0] in [11, 12, 13] %}th{% elif ns[0] % 10 == 1 %}st{% elif ns[0] % 10 == 2 %}nd{% elif ns[0] % 10 == 3 %}rd{% else %}th{% endif %}</sup> term of an arithmetic sequence is {{values[0]}}. </p>
+<p>The {{ns[1]}}<sup>{% if ns[1] in [11, 12, 13] %}th{% elif ns[1] % 10 == 1 %}st{% elif ns[1] % 10 == 2 %}nd{% elif ns[1] % 10 == 3 %}rd{% else %}th{% endif %}</sup> term of an arithmetic sequence is {{values[1]}}. </p>
+<p>What are the values of a<sub>1</sub> and d?</p>
+{% endblock %}
+
+{% block urlRefresh %}
+{{url_for('quizzes.arithmetic_sequences')}}
+{% endblock %}
+
+{% block urlPost -%}
+{{url_for('quizzes.arithmetic_sequences')}}
+{%- endblock %}

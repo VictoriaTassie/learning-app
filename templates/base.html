@@ -27,7 +27,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <div class="container">
   <a class="navbar-brand" href="{{url_for('index')}}">Learning App</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   
@@ -59,9 +59,12 @@
 		  <a class="dropdown-item" href="{{url_for('quizzes.arithmetic', type='division')}}">Division</a>
 		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Algebra</h6>
-          <a class="dropdown-item" href="{{url_for('quizzes.indices')}}">Indices</a>
+      <a class="dropdown-item" href="{{url_for('quizzes.indices')}}">Indices</a>
 		  <a class="dropdown-item" href="{{url_for('quizzes.simplifying_indices')}}">Simplifying Indices</a>
-        </div>
+      <div class="dropdown-divider"></div>
+      <h6 class="dropdown-header">Sequences</h6>
+      <a class="dropdown-item" href="{{url_for('quizzes.arithmetic_sequences')}}">Arithmetic Sequences</a>
+    </div>
       </li>
 	</ul>
   </div>
