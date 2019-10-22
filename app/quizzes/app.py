@@ -141,10 +141,11 @@ def arithmetic_sequences():
         a_1 = int(request.form['x'])
         d = int(request.form['y'])
         clientAnswer = ast.literal_eval(request.form['clientAnswer'])
+        
         if clientAnswer['a1'] == a_1 and clientAnswer['d'] == d:
-            session['total_correct'] += 1
-            session['correct_in_row'] += 1
-            return jsonify({'res':'Correct', 'ans': 'a1 = '+ a_1 + ' d = ' + d, 'total_correct': session['total_correct'], 'correct_in_row': session['correct_in_row']})
+            session['total_correct'] = int(session['total_correct']) + 1
+            session['correct_in_row'] = int(session['correct_in_row']) + 1
+            return jsonify({'res':'Correct', 'ans': 'a1 = '+ str(a_1) + ' d = ' + str(d), 'total_correct': session['total_correct'], 'correct_in_row': session['correct_in_row']})
         else:
             session['correct_in_row'] = 0
             return jsonify({'res':'Incorrect', 'ans': 'a<sub>1</sub> = '+ str(a_1) + ', d = ' + str(d), 'total_correct': session['total_correct'], 'correct_in_row': session['correct_in_row']})
