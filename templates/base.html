@@ -6,7 +6,7 @@
 <meta name="author" content="Victoria Tassie" />
 <meta name="viewport" content="width=device-width", initial-scale="1.0" />
 <meta name="keywords" content="Learning,Maths,Mathematics,{% block keywords %}{% endblock %}" />
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
 
 
 <!-- Bootstrap -->
@@ -57,6 +57,10 @@
 		  <a class="dropdown-item" href="{{url_for('quizzes.arithmetic', type='subtraction')}}">Subtraction</a>
 		  <a class="dropdown-item" href="{{url_for('quizzes.arithmetic', type='multiplication')}}">Multiplication</a>
 		  <a class="dropdown-item" href="{{url_for('quizzes.arithmetic', type='division')}}">Division</a>
+		  <div class="dropdown-divider"></div>
+		  <h6 class="dropdown-header">Algebra</h6>
+          <a class="dropdown-item" href="{{url_for('quizzes.indices')}}">Indices</a>
+		  <a class="dropdown-item" href="{{url_for('quizzes.simplifying_indices')}}">Simplifying Indices</a>
         </div>
       </li>
 	</ul>

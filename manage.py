@@ -8,6 +8,11 @@ application.register_blueprint(quizzes, url_prefix="/quizzes", template_folder="
 
 application.secret_key = "stringofwordsandsentences"
 
+
+@application.errorhandler(404)
+def error_404(e):
+    return render_template('error404.html')
+
 @application.route('/')
 def index():
     return render_template('index.html')

@@ -1,34 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %} 
-{{type.capitalize()}}
-{% endblock %}
-
-{% block keywords %}
-{% if type == 'addition' %}
-Addition,plus,add,adding
-{% elif type == 'subtraction' %}
-Subtraction,minus,negative,subtracting
-{% elif type == 'multiplication' %}
-Multiplication,times,multiply,multiplying
-{% elif type == 'division' %}
-Division,divide,dividing
-{% endif %}
-{% endblock %}
-
 {% block content %}
-<h1> {{type.capitalize()}}</h1>
+<h1> {% block heading %} {% endblock %}</h1>
 <div class="card">
 <div class="card-header">
-{% if type == 'addition' %}
-<h5 class="card-title">What is {{x}} + {{y}}?</h5>
-{% elif type == 'subtraction' %}
-<h5 class="card-title">What is {{x}} - {{y}}?</h5>
-{% elif type == 'multiplication' %}
-<h5 class="card-title">What is {{x}} &#215; {{y}}?</h5>
-{% elif type == 'division' %}
-<h5 class="card-title">What is {{x}} &#247; {{y}}?</h5>
-{% endif %}
+<h5 class="card-title">{% block question %}{% endblock %}</h5>
 </div>
 <div class="container">
 <div class="float-left" id="num-right">Total Number of Correct Answers: {{total_correct}}</div>
@@ -45,7 +21,7 @@ Division,divide,dividing
 <input type="hidden" id="clientAnswer" name="clientAnswer"></input>
 <input type="hidden" id="x" name="x"></input>
 <input type="hidden" id="y" name="y"></input>
-<a class="btn btn-primary mb-3 float-left" href="{{url_for('quizzes.arithmetic', type=type)}}">New Question</a>
+<a class="btn btn-primary mb-3 float-left" href="{% block urlRefresh %}{% endblock %}">New Question</a>
 <button class="btn btn-primary mb-3 float-right" id="smt-btn" type="submit">Check Answer</button>
 </form>
 
@@ -77,7 +53,7 @@ $('.answer').removeClass("badge-success badge-danger");
 
 $.ajax({
   type : 'POST',
-  url : "{{url_for('quizzes.arithmetic', type=type)}}",
+  url : "{% block urlPost %}{% endblock %}",
   data : {'x':{{x}},
           'y':{{y}},
 		  'clientAnswer': $("#clientAnswer").val()},

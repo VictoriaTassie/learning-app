@@ -1,0 +1,40 @@
+{% extends "quizzes/quizzes-base.html" %}
+
+{% block title %} 
+{{type.capitalize()}}
+{% endblock %}
+
+{% block keywords %}
+{% if type == 'addition' %}
+Addition,plus,add,adding
+{% elif type == 'subtraction' %}
+Subtraction,minus,negative,subtracting
+{% elif type == 'multiplication' %}
+Multiplication,times,multiply,multiplying
+{% elif type == 'division' %}
+Division,divide,dividing
+{% endif %}
+{% endblock %}
+
+{% block heading %}{{type.capitalize()}}{% endblock %}
+
+{% block question %}
+{% if type == 'addition' %}
+What is {{x}} + {{y}}?
+{% elif type == 'subtraction' %}
+What is {{x}} - {{y}}?
+{% elif type == 'multiplication' %}
+What is {{x}} &#215; {{y}}?
+{% elif type == 'division' %}
+What is {{x}} &#247; {{y}}?
+{% endif %}
+{% endblock %}
+
+
+{% block urlRefresh %}
+{{url_for('quizzes.arithmetic', type=type)}}
+{% endblock %}
+
+{% block urlPost -%}
+{{url_for('quizzes.arithmetic', type=type)}}
+{%- endblock %}
