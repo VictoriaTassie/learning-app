@@ -1,0 +1,7 @@
+Flask
+Flask-Session
+requests
+gunicorn
+ast
+random
+json
