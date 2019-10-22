@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from learning.app import learning
-from quizzes.app import quizzes
+from app.learning.app import learning
+from app.quizzes.app import quizzes
 
 application = Flask(__name__)
 application.register_blueprint(learning, url_prefix="/learning", template_folder="templates")
