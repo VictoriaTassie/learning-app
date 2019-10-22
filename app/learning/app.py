@@ -17,3 +17,7 @@ def index():
 @learning.route('/addition', methods=["POST", "GET"])
 def addition():      
     return render_template('learning/addition.html')
+
+@learning.route('arithmetic-sequences', methods=['GET'])
+def arithmetic_sequences():
+    return render_template('learning/arithmetic-sequences.html')
